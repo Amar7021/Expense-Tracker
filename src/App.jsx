@@ -1,42 +1,31 @@
 import "./App.css"
-import { createBrowserRouter } from "react-router"
 import { RouterProvider } from "react-router/dom"
-import Home from "./modules/home/Home"
-import AuthRoute from "./utils/auth-route/AuthRoute"
-import Profile from "./modules/profile/Profile"
-import RootError from "./utils/errors/RootError"
-import SignIn from "./modules/auth/sign-in/SignIn"
-import SignUp from "./modules/auth/sign-up/SignUp"
+import router from "./routes/Routes"
+import { useEffect } from "react"
+import { setThemeMode } from "./global-state/global-feature-slice/appStartSlice"
+import { useDispatch } from "react-redux"
 
 function App() {
-    const router = createBrowserRouter([
-        {
-            path: "/sign-in",
-            Component: SignIn,
-        },
-        {
-            path: "/sign-up",
-            Component: SignUp,
-        },
-        {
-            Component: AuthRoute,
-            errorElement: <RootError />,
-            children: [
-                {
-                    path: "/",
-                    Component: Home,
-                },
-                {
-                    path: "profile",
-                    Component: Profile,
-                },
-            ],
-        },
-        {
-            path: "*",
-            element: <div>Page Not Found!!!</div>,
-        },
-    ])
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const stored = localStorage.getItem("theme") || "system"
+        dispatch(setThemeMode(stored))
+    }, [dispatch])
+
+    useEffect(() => {
+        const media = window.matchMedia("(prefers-color-scheme: dark)")
+
+        const listener = () => {
+            const stored = localStorage.getItem("theme")
+            if (!stored) {
+                dispatch(setThemeMode("system"))
+            }
+        }
+
+        media.addEventListener("change", listener)
+        return () => media.removeEventListener("change", listener)
+    }, [dispatch])
 
     return (
         <div>
