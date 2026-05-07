@@ -1,44 +1,55 @@
 import { createBrowserRouter } from "react-router"
-import Home from "../modules/home/Home"
-import AuthRoute from "../utils/auth-route/AuthRoute"
-import Profile from "../modules/profile/Profile"
+// import AuthRoute from "../utils/auth-route/AuthRoute"
 import RootError from "../utils/errors/RootError"
-import SignIn from "../modules/auth/sign-in/SignIn"
-import SignUp from "../modules/auth/sign-up/SignUp"
-import DarkMode from "../modules/dark-mode/DarkMode"
-import DarkMode2 from "../modules/dark-mode/DarkMode2"
-import DarkMode3 from "../modules/dark-mode/DarkMode3"
+import SignIn from "../modules/sign-in/SignIn"
+import SignUp from "../modules/sign-up/SignUp"
+import PageNotFound from "../modules/errors/PageNotFound"
+import { DarkMode3, Home, Profile } from "./lazyImports"
+import lazyComponent from "./Utils"
+import RootLayout from "../components/layouts/RootLayout"
+import AuthRootLayout from "../components/layouts/AuthRootLayout"
 
 const router = createBrowserRouter([
     {
-        path: "/sign-in",
-        Component: SignIn,
-    },
-    {
-        path: "/sign-up",
-        Component: SignUp,
-    },
-    {
-        Component: AuthRoute,
+        path: "/",
+        Component: RootLayout,
         errorElement: <RootError />,
         children: [
             {
-                path: "/",
-                Component: Home,
+                index: true,
+                element: <div>Landing Page</div>,
+            },
+            {
+                path: "sign-in",
+                Component: SignIn,
+            },
+            {
+                path: "sign-up",
+                Component: SignUp,
+            },
+        ],
+    },
+    {
+        Component: AuthRootLayout,
+        errorElement: <RootError />,
+        children: [
+            {
+                path: "home",
+                element: lazyComponent(<Home />),
             },
             {
                 path: "profile",
-                Component: Profile,
+                element: lazyComponent(<Profile />),
             },
             {
                 path: "dark",
-                Component: DarkMode3,
+                element: lazyComponent(<DarkMode3 />),
             },
         ],
     },
     {
         path: "*",
-        element: <div>Page Not Found!!!</div>,
+        Component: PageNotFound,
     },
 ])
 

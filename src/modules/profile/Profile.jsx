@@ -1,5 +1,11 @@
 const Profile = () => {
-    return <div>Profile: {somethingRandom}</div>
+    return (
+        <>
+            <title>Expense Tracker - Profile</title>
+            <meta name="robots" content="noindex, nofollow" />
+            <div>Profile:</div>
+        </>
+    )
 }
 
 export default Profile

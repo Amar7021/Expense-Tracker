@@ -28,9 +28,11 @@ function App() {
     }, [dispatch])
 
     return (
-        <div>
-            <RouterProvider router={router} />
-        </div>
+        <>
+            <div>
+                <RouterProvider router={router} />
+            </div>
+        </>
     )
 }
 

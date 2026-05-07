@@ -1,8 +1,12 @@
 const Home = () => {
     return (
-        <div className="flex justify-center bg-blue-500 p-4 text-white">
-            Expense Tracker
-        </div>
+        <>
+            <title>Expense Tracker - Home</title>
+            <meta name="robots" content="noindex, nofollow" />
+            <div className="flex justify-center bg-blue-500 p-4 text-white">
+                asdasd
+            </div>
+        </>
     )
 }
 
