@@ -1,7 +1,6 @@
 import { lazy } from "react"
 
-const Home = lazy(() => import("../modules/home/Home"))
 const Profile = lazy(() => import("../modules/profile/Profile"))
-const DarkMode3 = lazy(() => import("../modules/dark-mode/DarkMode3"))
+const Dashboard = lazy(() => import("../modules/dashboard/Dashboard"))
 
-export { Home, Profile, DarkMode3 }
+export { Profile, Dashboard }

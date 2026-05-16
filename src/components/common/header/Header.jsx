@@ -1,14 +1,13 @@
-import { NavLink } from "react-router"
+import { NavLink, useNavigate } from "react-router"
 import { Menu, Wallet, X } from "lucide-react"
 import ThemeSwitcher from "../../theme-switcher/ThemeSwitcher"
 import MobileSidebar from "../sidebar/MobileSidebar"
 import { useState } from "react"
-import AuthButtons from "../AuthButtons"
-import { navLinks } from "../utils"
-import NavItem from "./NavItem"
+import { Button } from "@/components/ui/Button"
 
-const Header = () => {
+const Header = ({ authRoute = false }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const navigate = useNavigate()
 
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)
@@ -27,42 +26,52 @@ const Header = () => {
                         "color-mix(in srgb, var(--bg) 95%, transparent)",
                 }}
             >
-                <nav className="mx-auto flex h-[60px] max-w-[1200px] items-center justify-between px-6">
+                <nav className="ml-0 flex h-[60px] items-center justify-between px-6 md:ml-5">
                     <NavLink
-                        to="/"
+                        to={authRoute ? "/dashboard" : "/"}
                         className="flex items-center gap-2 text-[17px] font-medium text-[var(--bg)] text-[var(--text-h)] no-underline"
                         style={{
                             letterSpacing: "-0.3px",
                         }}
                     >
-                        <Wallet color="var(--accent)" />
+                        <Wallet color="var(--accent-1)" />
                         Expense Tracker
                     </NavLink>
-                    <div className="hidden items-center gap-1 md:flex">
-                        {navLinks.map(link => (
-                            <NavItem key={link.to} {...link} />
-                        ))}
-                    </div>
-                    <div className="hidden items-center gap-3 md:flex">
+                    {!authRoute && (
+                        <div className={`hidden items-center gap-3 md:flex`}>
+                            <NavLink
+                                to="/sign-in"
+                                className={`bg-bg-transparent rounded-lg border border-[var(--border)] px-4 py-2 text-center text-sm text-[var(--text)] no-underline transition-all duration-200 hover:border-[var(--accent-border)] hover:text-[var(--accent-1)]`}
+                            >
+                                Sign in
+                            </NavLink>
+                            <Button
+                                size="lg"
+                                onClick={() => navigate("/sign-up")}
+                                className="group inline-flex h-[44px] items-center justify-center gap-2 rounded-xl bg-[var(--accent-1)] px-7 py-4 text-base font-semibold text-white shadow-xl shadow-purple-500/20 transition hover:scale-[1.02]"
+                            >
+                                Get started
+                            </Button>
+                        </div>
+                    )}
+                    <div className="flex items-center gap-2">
                         <ThemeSwitcher />
-                        <AuthButtons />
-                    </div>
-                    <div className="flex items-center gap-2 md:hidden">
-                        <ThemeSwitcher />
-                        <button
-                            onClick={toggleSidebar}
-                            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] md:hidden"
-                            style={{
-                                background: "var(--card)",
-                                color: "var(--text)",
-                            }}
-                        >
-                            {isSidebarOpen ? (
-                                <X size={20} />
-                            ) : (
-                                <Menu size={20} />
-                            )}
-                        </button>
+                        {authRoute && (
+                            <button
+                                onClick={toggleSidebar}
+                                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)]"
+                                style={{
+                                    background: "var(--card)",
+                                    color: "var(--text)",
+                                }}
+                            >
+                                {isSidebarOpen ? (
+                                    <X size={20} />
+                                ) : (
+                                    <Menu size={20} />
+                                )}
+                            </button>
+                        )}
                     </div>
                 </nav>
             </header>

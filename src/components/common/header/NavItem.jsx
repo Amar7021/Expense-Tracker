@@ -1,25 +1,20 @@
 import { NavLink } from "react-router"
 import NavIcon from "./NavIcon"
 
-const NavItem = ({ label, to, icon, mobile = false, onClick }) => {
+const NavItem = ({ label, to, icon, onClick }) => {
     return (
         <NavLink
             to={to}
             onClick={onClick}
             className={({ isActive }) =>
-                `${
-                    mobile ? "flex items-center gap-3 px-4 py-3" : "px-3 py-2"
-                } rounded-lg text-sm font-medium no-underline transition-all duration-200 ${
-                    isActive ? "active" : ""
+                `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium no-underline transition-colors duration-200 ${
+                    isActive
+                        ? "active bg-[var(--accent-bg)] text-[var(--accent-1)]"
+                        : "bg-transparent text-[var(--text)] hover:bg-[var(--accent-bg)] hover:text-[var(--accent-1)]"
                 }`
             }
-            style={({ isActive }) => ({
-                background: isActive ? "var(--accent-bg)" : "transparent",
-                color: isActive ? "var(--accent)" : "var(--text)",
-            })}
         >
-            {mobile && icon && <NavIcon name={icon} />}
-
+            <NavIcon name={icon} />
             {label}
         </NavLink>
     )
