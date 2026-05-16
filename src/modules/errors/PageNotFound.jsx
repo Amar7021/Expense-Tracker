@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/Button"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router"
 
@@ -69,7 +70,7 @@ const PageNotFound = () => {
                             aria-hidden
                             className="absolute inset-0 text-transparent opacity-35 select-none"
                             style={{
-                                WebkitTextStroke: "1.5px var(--accent)",
+                                WebkitTextStroke: "1.5px var(--accent-1)",
                                 transform: `translate(${mousePos.x * 0.8}px, ${mousePos.y * 0.6}px)`,
                                 transition: "transform 0.2s ease-out",
                             }}
@@ -78,8 +79,8 @@ const PageNotFound = () => {
                         </span>
                         404
                     </div>
-                    <span className="inline-flex items-center gap-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-bg)] px-3 py-1 text-sm font-medium tracking-wide text-[var(--accent)]">
-                        <span className="size-1.5 [animation:pulse-dot_1.6s_ease-in-out_infinite] rounded-full bg-[var(--accent)]" />
+                    <span className="inline-flex items-center gap-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-bg)] px-3 py-1 text-sm font-medium tracking-wide text-[var(--accent-1)]">
+                        <span className="size-1.5 [animation:pulse-dot_1.6s_ease-in-out_infinite] rounded-full bg-[var(--accent-1)]" />
                         Page not found
                     </span>
                     <h1
@@ -93,9 +94,9 @@ const PageNotFound = () => {
                         the link is broken. Head back to safety below.
                     </p>
                     <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
-                        <button
+                        <Button
                             onClick={() => navigate("/")}
-                            className="relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-xl border-none bg-[var(--accent)] px-6 py-3 text-sm font-medium text-white shadow-[0_0_0_0_var(--accent-border)] transition-all duration-200 hover:shadow-[0_0_0_4px_var(--accent-border)]"
+                            className="relative inline-flex h-12 cursor-pointer items-center gap-2 overflow-hidden rounded-xl border-none bg-[var(--accent-1)] px-6 py-3 text-sm font-medium text-white shadow-[0_0_0_0_var(--accent-border)] transition-all duration-200 hover:shadow-[0_0_0_4px_var(--accent-border)]"
                         >
                             <svg
                                 width="16"
@@ -112,24 +113,26 @@ const PageNotFound = () => {
                                 />
                             </svg>
                             Go Home
-                        </button>
+                        </Button>
 
-                        <button
+                        <Button
                             onClick={() => navigate(-1)}
-                            className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-6 py-3 text-sm font-medium text-[var(--text-h)] transition-all duration-200 hover:border-[var(--accent-border)]"
+                            className="inline-flex h-12 cursor-pointer items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-6 py-3 text-sm font-medium text-[var(--text-h)] transition-all duration-200 hover:border-[var(--accent-border)]"
+                            size="lg"
+                            variant="outline"
                         >
                             Go back
-                        </button>
+                        </Button>
                     </div>
                     <p className="mt-2 text-sm text-[var(--text)] opacity-60">
                         Redirecting to home in{" "}
-                        <span className="text-[var(--accent)] tabular-nums">
+                        <span className="text-[var(--accent-1)] tabular-nums">
                             {seconds}s
                         </span>
                     </p>
                     <div className="mt-2 h-1 w-full max-w-[240px] overflow-hidden rounded-full bg-[var(--border)]">
                         <div
-                            className="h-full bg-[var(--accent)] transition-all duration-1000 ease-linear"
+                            className="h-full bg-[var(--accent-1)] transition-all duration-1000 ease-linear"
                             style={{
                                 width: `${(seconds / 10) * 100}%`,
                             }}
@@ -139,7 +142,7 @@ const PageNotFound = () => {
                 <div className="absolute right-0 bottom-8 left-0 flex items-center justify-center gap-2 text-xs text-[var(--text)] opacity-45">
                     <span>Home</span>
                     <span>/</span>
-                    <span className="text-[var(--accent)]">404</span>
+                    <span className="text-[var(--accent-1)]">404</span>
                 </div>
 
                 <style>{`

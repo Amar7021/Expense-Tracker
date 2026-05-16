@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router"
-// import AuthRoute from "../utils/auth-route/AuthRoute"
 import RootError from "../utils/errors/RootError"
-import SignIn from "../modules/sign-in/SignIn"
-import SignUp from "../modules/sign-up/SignUp"
-import PageNotFound from "../modules/errors/PageNotFound"
-import { DarkMode3, Home, Profile } from "./lazyImports"
+import { Profile, Dashboard } from "./lazyImports"
 import lazyComponent from "./Utils"
-import RootLayout from "../components/layouts/RootLayout"
-import AuthRootLayout from "../components/layouts/AuthRootLayout"
+import RootLayout from "@/components/layouts/RootLayout"
+import AuthRootLayout from "@/components/layouts/AuthRootLayout"
+import SignIn from "@/modules/sign-in/SignIn"
+import SignUp from "@/modules/sign-up/SignUp"
+import PageNotFound from "@/modules/errors/PageNotFound"
+import LandingPage from "@/modules/home/LandingPage"
 
 const router = createBrowserRouter([
     {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <div>Landing Page</div>,
+                element: <LandingPage />,
             },
             {
                 path: "sign-in",
@@ -34,16 +34,12 @@ const router = createBrowserRouter([
         errorElement: <RootError />,
         children: [
             {
-                path: "home",
-                element: lazyComponent(<Home />),
+                path: "dashboard",
+                element: lazyComponent(<Dashboard />),
             },
             {
                 path: "profile",
                 element: lazyComponent(<Profile />),
-            },
-            {
-                path: "dark",
-                element: lazyComponent(<DarkMode3 />),
             },
         ],
     },

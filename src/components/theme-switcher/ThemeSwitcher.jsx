@@ -31,7 +31,7 @@ export default function ThemeSwitcher() {
                         onClick={() => handleTheme(key)}
                         className={`flex cursor-pointer items-center gap-1 rounded-full p-1 text-sm font-medium transition-colors duration-200 ${
                             isActive
-                                ? "border border-[var(--accent-border)] bg-[var(--accent-bg)] text-[var(--accent)]"
+                                ? "border border-[var(--accent-border)] bg-[var(--accent-bg)] text-[var(--accent-1)]"
                                 : "text-[var(--text)] hover:bg-[var(--accent-bg)]/50"
                         } `}
                     >
