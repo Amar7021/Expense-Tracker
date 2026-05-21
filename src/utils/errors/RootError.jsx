@@ -6,20 +6,15 @@ const RootError = () => {
     return (
         <div className="flex min-h-screen items-center justify-center bg-(--bg) px-4">
             <div className="w-full max-w-lg rounded-2xl border border-(--border) bg-(--bg) p-6 shadow-(--shadow)">
-                {/* Header */}
                 <div className="mb-4 flex items-center gap-3">
                     <div className="rounded-full bg-(--accent-bg) p-2 text-(--accent)">
                         ⚠️
                     </div>
                     <h2>Something went wrong</h2>
                 </div>
-
-                {/* Message */}
                 <p className="mb-4 text-(--text)">
                     {error?.message || "An unexpected error occurred."}
                 </p>
-
-                {/* Stack */}
                 {error?.stack && (
                     <details className="overflow-auto rounded-lg border border-(--border) bg-(--code-bg) p-3 text-sm">
                         <summary className="mb-2 cursor-pointer text-(--text)">
@@ -30,8 +25,6 @@ const RootError = () => {
                         </pre>
                     </details>
                 )}
-
-                {/* Actions */}
                 <div className="mt-6 flex justify-end">
                     <button
                         onClick={() => window.location.reload()}

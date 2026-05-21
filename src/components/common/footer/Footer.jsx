@@ -12,7 +12,7 @@ const Footer = () => {
                         © {new Date().getFullYear()}
                     </span>
                     <span className="text-sm font-medium text-[var(--text-h)]">
-                        Expense Tracker
+                        Smart Split
                     </span>
                 </div>
             </div>

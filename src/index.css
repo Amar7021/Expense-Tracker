@@ -2,6 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
+@import "@clerk/ui/themes/shadcn.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -141,6 +142,7 @@
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
 }
+
 /* @media (prefers-color-scheme: dark) {
     :root {
         --text: #9ca3af;
@@ -215,9 +217,11 @@
     * {
         @apply border-border outline-ring/50;
     }
+
     body {
         @apply bg-background text-foreground;
     }
+
     html {
         @apply font-sans;
     }

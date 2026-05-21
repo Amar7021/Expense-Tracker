@@ -1,18 +1,21 @@
-import { useNavigate } from "react-router"
+import PuffLoading from "@/components/loaders/PuffLoading"
+import { SignIn as ClerkSignIn } from "@clerk/react"
 
 const SignIn = () => {
-    const navigate = useNavigate()
-
     return (
-        <div>
-            <button
-                type="button"
-                className="bg-white text-black"
-                onClick={() => navigate("/sign-up")}
-            >
-                Sign up
-            </button>
-        </div>
+        <>
+            <title>Smart Split - Sign In</title>
+            <meta name="robots" content="noindex, nofollow" />
+            <section className="mt-[75px] flex items-center justify-center">
+                <ClerkSignIn
+                    signUpUrl={import.meta.env.VITE_CLERK_SIGN_UP_URL}
+                    fallbackRedirectUrl={
+                        import.meta.env.VITE_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
+                    }
+                    fallback={<PuffLoading />}
+                />
+            </section>
+        </>
     )
 }
 

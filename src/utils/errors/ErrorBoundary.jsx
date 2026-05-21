@@ -24,7 +24,6 @@ export default class ErrorBoundary extends Component {
             return (
                 <div className="flex min-h-screen items-center justify-center bg-(--bg) px-4">
                     <div className="w-full max-w-lg rounded-2xl border border-(--border) bg-(--bg) p-6 shadow-(--shadow)">
-                        {/* Header */}
                         <div className="mb-4 flex items-center gap-3">
                             <div className="rounded-full bg-(--accent-bg) p-2 text-(--accent)">
                                 ⚠️
@@ -33,14 +32,10 @@ export default class ErrorBoundary extends Component {
                                 Something went wrong
                             </h2>
                         </div>
-
-                        {/* Message */}
                         <p className="mb-4 text-(--text)">
                             {this.state.error?.toString() ||
                                 "An unexpected error occurred."}
                         </p>
-
-                        {/* Stack details */}
                         {this.state.errorInfo?.componentStack && (
                             <details className="overflow-auto rounded-lg border border-(--border) bg-(--code-bg) p-3 text-sm">
                                 <summary className="mb-2 cursor-pointer text-(--text)">
@@ -51,8 +46,6 @@ export default class ErrorBoundary extends Component {
                                 </pre>
                             </details>
                         )}
-
-                        {/* Action buttons */}
                         <div className="mt-6 flex justify-end gap-2">
                             <button
                                 onClick={() => window.location.reload()}

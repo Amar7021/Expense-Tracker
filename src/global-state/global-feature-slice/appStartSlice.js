@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const getSystemTheme = () =>
+export const getSystemTheme = () =>
     window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
 
 const applyThemeToDOM = mode => {

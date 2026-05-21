@@ -1,13 +1,18 @@
-import { NavLink, useNavigate } from "react-router"
+import { NavLink, useLocation, useNavigate } from "react-router"
 import { Menu, Wallet, X } from "lucide-react"
 import ThemeSwitcher from "../../theme-switcher/ThemeSwitcher"
 import MobileSidebar from "../sidebar/MobileSidebar"
 import { useState } from "react"
 import { Button } from "@/components/ui/Button"
+import { UserButton } from "@clerk/react"
+import { Skeleton } from "@/components/ui/skeleton"
 
-const Header = ({ authRoute = false }) => {
+const Header = ({ authRoute = false, isLoading = false }) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const navigate = useNavigate()
+    const location = useLocation()
+    const allowPath =
+        location?.pathname === "/sign-in" || location?.pathname === "/sign-up"
 
     const toggleSidebar = () => {
         setIsSidebarOpen(prev => !prev)
@@ -35,9 +40,9 @@ const Header = ({ authRoute = false }) => {
                         }}
                     >
                         <Wallet color="var(--accent-1)" />
-                        Expense Tracker
+                        Smart Split
                     </NavLink>
-                    {!authRoute && (
+                    {!authRoute && !allowPath && (
                         <div className={`hidden items-center gap-3 md:flex`}>
                             <NavLink
                                 to="/sign-in"
@@ -57,20 +62,30 @@ const Header = ({ authRoute = false }) => {
                     <div className="flex items-center gap-2">
                         <ThemeSwitcher />
                         {authRoute && (
-                            <button
-                                onClick={toggleSidebar}
-                                className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)]"
-                                style={{
-                                    background: "var(--card)",
-                                    color: "var(--text)",
-                                }}
-                            >
-                                {isSidebarOpen ? (
-                                    <X size={20} />
+                            <>
+                                {isLoading ? (
+                                    <Skeleton className="h-[34px] w-[34px] rounded-full" />
                                 ) : (
-                                    <Menu size={20} />
+                                    <UserButton
+                                        userProfileMode="navigation"
+                                        userProfileUrl="/profile"
+                                    />
                                 )}
-                            </button>
+                                <button
+                                    onClick={toggleSidebar}
+                                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)]"
+                                    style={{
+                                        background: "var(--card)",
+                                        color: "var(--text)",
+                                    }}
+                                >
+                                    {isSidebarOpen ? (
+                                        <X size={20} />
+                                    ) : (
+                                        <Menu size={20} />
+                                    )}
+                                </button>
+                            </>
                         )}
                     </div>
                 </nav>

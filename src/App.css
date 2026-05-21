@@ -2,6 +2,8 @@ html,
 body {
     margin: 0;
     font-family: var(--sans);
+    overflow-x: hidden;
+    position: relative;
 }
 
 h1,
