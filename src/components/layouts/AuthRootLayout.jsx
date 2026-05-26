@@ -4,7 +4,7 @@ import Footer from "../common/footer/Footer"
 import { useAuth } from "@clerk/react"
 import { useEffect, useRef } from "react"
 import LoadingBar from "react-top-loading-bar"
-import PuffLoading from "../loaders/PuffLoading"
+import GridLoading from "../loaders/GridLoading"
 
 const AuthRootLayout = () => {
     const { isLoaded, userId } = useAuth()
@@ -29,6 +29,7 @@ const AuthRootLayout = () => {
 
         return () => {
             clearTimeout(timer)
+            loadingBar?.complete()
         }
     }, [location?.pathname])
 
@@ -44,7 +45,9 @@ const AuthRootLayout = () => {
                 shadow={true}
             />
             <Header authRoute isLoading={!isLoaded} />
-            <main>{!isLoaded ? <PuffLoading /> : <Outlet />}</main>
+            <main className="mx-auto px-[35px] py-[20px]">
+                {/* !isLoaded ? <GridLoading /> : */ <Outlet />}
+            </main>
             <Footer />
         </>
     )

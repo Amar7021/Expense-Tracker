@@ -1,4 +1,4 @@
-import PuffLoading from "@/components/loaders/PuffLoading"
+import GridLoading from "@/components/loaders/GridLoading"
 import { SignIn as ClerkSignIn } from "@clerk/react"
 
 const SignIn = () => {
@@ -12,7 +12,7 @@ const SignIn = () => {
                     fallbackRedirectUrl={
                         import.meta.env.VITE_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL
                     }
-                    fallback={<PuffLoading />}
+                    fallback={<GridLoading />}
                 />
             </section>
         </>

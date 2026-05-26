@@ -1,4 +1,4 @@
-import PuffLoading from "@/components/loaders/PuffLoading"
+import GridLoading from "@/components/loaders/GridLoading"
 import { UserProfile } from "@clerk/react"
 
 const Profile = () => {
@@ -7,7 +7,7 @@ const Profile = () => {
             <title>Smart Split - Profile</title>
             <meta name="robots" content="noindex, nofollow" />
             <section className="mx-[20px] mt-[120px] mb-[50px] flex w-full items-center justify-center">
-                <UserProfile fallback={<PuffLoading />} />
+                <UserProfile fallback={<GridLoading />} />
             </section>
         </>
     )
