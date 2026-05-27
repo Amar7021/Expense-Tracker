@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/Button"
+import { useAuth } from "@clerk/react"
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router"
 
@@ -7,15 +8,17 @@ const PageNotFound = () => {
     const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
     const [seconds, setSeconds] = useState(10)
     const containerRef = useRef(null)
+    const { userId } = useAuth()
+    const navigateTo = userId ? "/dashboard" : "/"
 
     useEffect(() => {
         if (seconds <= 0) {
-            navigate("/")
+            navigate(navigateTo)
             return
         }
         const t = setTimeout(() => setSeconds(s => s - 1), 1000)
         return () => clearTimeout(t)
-    }, [seconds, navigate])
+    }, [seconds, navigate, navigateTo])
 
     useEffect(() => {
         const handleMove = e => {
@@ -31,7 +34,7 @@ const PageNotFound = () => {
 
     return (
         <>
-            <title>Expense Tracker - 404 Page Not Found</title>
+            <title>Smart Split - 404 Page Not Found</title>
             <meta name="robots" content="noindex, nofollow" />
             <div
                 ref={containerRef}
@@ -80,7 +83,7 @@ const PageNotFound = () => {
                         404
                     </div>
                     <span className="inline-flex items-center gap-2 rounded-full border border-[var(--accent-border)] bg-[var(--accent-bg)] px-3 py-1 text-sm font-medium tracking-wide text-[var(--accent-1)]">
-                        <span className="size-1.5 [animation:pulse-dot_1.6s_ease-in-out_infinite] rounded-full bg-[var(--accent-1)]" />
+                        <span className="size-1.5 animate-pulse rounded-full bg-[var(--accent-1)]" />
                         Page not found
                     </span>
                     <h1
@@ -95,7 +98,7 @@ const PageNotFound = () => {
                     </p>
                     <div className="mt-2 flex flex-wrap items-center justify-center gap-3">
                         <Button
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate(navigateTo)}
                             className="relative inline-flex h-12 cursor-pointer items-center gap-2 overflow-hidden rounded-xl border-none bg-[var(--accent-1)] px-6 py-3 text-sm font-medium text-white shadow-[0_0_0_0_var(--accent-border)] transition-all duration-200 hover:shadow-[0_0_0_4px_var(--accent-border)]"
                         >
                             <svg
@@ -112,7 +115,7 @@ const PageNotFound = () => {
                                     strokeLinejoin="round"
                                 />
                             </svg>
-                            Go Home
+                            {navigateTo === "/" ? "Home" : "Dashboard"}
                         </Button>
 
                         <Button
@@ -125,7 +128,8 @@ const PageNotFound = () => {
                         </Button>
                     </div>
                     <p className="mt-2 text-sm text-[var(--text)] opacity-60">
-                        Redirecting to home in{" "}
+                        Redirecting to{" "}
+                        {navigateTo === "/" ? "home" : "dashboard"} in{" "}
                         <span className="text-[var(--accent-1)] tabular-nums">
                             {seconds}s
                         </span>
@@ -139,18 +143,11 @@ const PageNotFound = () => {
                         />
                     </div>
                 </div>
-                <div className="absolute right-0 bottom-8 left-0 flex items-center justify-center gap-2 text-xs text-[var(--text)] opacity-45">
-                    <span>Home</span>
+                <div className="absolute right-0 bottom-10 left-0 flex items-center justify-center gap-2 text-xs text-[var(--text)] opacity-45">
+                    <span>{navigateTo === "/" ? "Home" : "Dashboard"}</span>
                     <span>/</span>
                     <span className="text-[var(--accent-1)]">404</span>
                 </div>
-
-                <style>{`
-                @keyframes pulse-dot {
-                    0%, 100% { opacity: 1; transform: scale(1); }
-                    50%       { opacity: 0.4; transform: scale(0.7); }
-                }
-            `}</style>
             </div>
         </>
     )

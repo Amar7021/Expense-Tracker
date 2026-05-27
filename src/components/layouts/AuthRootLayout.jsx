@@ -1,22 +1,55 @@
-import { Navigate, Outlet } from "react-router"
+import { Navigate, Outlet, useLocation } from "react-router"
 import Header from "../common/header/Header"
 import Footer from "../common/footer/Footer"
+import { useAuth } from "@clerk/react"
+import { useEffect, useRef } from "react"
+import LoadingBar from "react-top-loading-bar"
+import GridLoading from "../loaders/GridLoading"
 
 const AuthRootLayout = () => {
-    const authToken = false
+    const { isLoaded, userId } = useAuth()
+    const location = useLocation()
 
-    if (!authToken) {
+    const loadingBarRef = useRef(null)
+
+    useEffect(() => {
+        const loadingBar = loadingBarRef.current
+
+        loadingBar?.continuousStart()
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        })
+
+        const timer = setTimeout(() => {
+            loadingBar?.complete()
+        }, 500)
+
+        return () => {
+            clearTimeout(timer)
+            loadingBar?.complete()
+        }
+    }, [location?.pathname])
+
+    if (isLoaded && !userId) {
         return <Navigate to="/" replace />
     }
 
     return (
-        <div className="flex min-h-screen flex-col">
-            <Header authRoute />
-            <main className="bg-background text-foreground min-h-screen">
-                <Outlet />
+        <>
+            <LoadingBar
+                color="var(--accent-1)"
+                ref={loadingBarRef}
+                shadow={true}
+            />
+            <Header authRoute isLoading={!isLoaded} />
+            <main className="mx-auto px-[35px] py-[20px]">
+                {/* !isLoaded ? <GridLoading /> : */ <Outlet />}
             </main>
             <Footer />
-        </div>
+        </>
     )
 }
 

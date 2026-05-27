@@ -1,9 +1,15 @@
+import SectionWrapper from "@/components/custom/SectionWrapper"
+import GridLoading from "@/components/loaders/GridLoading"
+import { UserProfile } from "@clerk/react"
+
 const Profile = () => {
     return (
         <>
-            <title>Expense Tracker - Profile</title>
+            <title>Smart Split - Profile</title>
             <meta name="robots" content="noindex, nofollow" />
-            <div>Profile:</div>
+            <SectionWrapper>
+                <UserProfile fallback={<GridLoading />} />
+            </SectionWrapper>
         </>
     )
 }

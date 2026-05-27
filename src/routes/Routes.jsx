@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router"
 import RootError from "../utils/errors/RootError"
-import { Profile, Dashboard } from "./lazyImports"
+import { Profile, Dashboard, Expenses } from "./lazyImports"
 import lazyComponent from "./Utils"
 import RootLayout from "@/components/layouts/RootLayout"
 import AuthRootLayout from "@/components/layouts/AuthRootLayout"
@@ -40,6 +40,10 @@ const router = createBrowserRouter([
             {
                 path: "profile",
                 element: lazyComponent(<Profile />),
+            },
+            {
+                path: "expenses",
+                element: lazyComponent(<Expenses />),
             },
         ],
     },

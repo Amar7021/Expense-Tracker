@@ -18,6 +18,11 @@ const LandingPage = () => {
     }
     return (
         <>
+            <title>Smart Split - Track Expenses Easily</title>
+            <meta
+                name="description"
+                content="Smart Split helps friends, roommates, and teams split expenses effortlessly, track balances, manage shared spending, and settle payments with ease."
+            />
             <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
                 <div className="absolute top-0 left-0 h-[500px] w-[500px] rounded-full bg-[var(--accent-bg)] blur-3xl" />
                 <div className="absolute right-0 bottom-0 h-[500px] w-[500px] rounded-full bg-[var(--accent-bg)] blur-3xl" />
