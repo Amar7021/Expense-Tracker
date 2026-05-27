@@ -1,3 +1,4 @@
+import SectionWrapper from "@/components/custom/SectionWrapper"
 import GridLoading from "@/components/loaders/GridLoading"
 import { UserProfile } from "@clerk/react"
 
@@ -6,9 +7,9 @@ const Profile = () => {
         <>
             <title>Smart Split - Profile</title>
             <meta name="robots" content="noindex, nofollow" />
-            <section className="mx-[20px] mt-[120px] mb-[50px] flex w-full items-center justify-center">
+            <SectionWrapper>
                 <UserProfile fallback={<GridLoading />} />
-            </section>
+            </SectionWrapper>
         </>
     )
 }
