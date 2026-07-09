@@ -1,70 +1,84 @@
-import { Component } from "react"
+import { AlertTriangle, Home, RefreshCw } from "lucide-react"
+import { useRouteError, useNavigate } from "react-router"
 
-export default class ErrorBoundary extends Component {
-    constructor(props) {
-        super(props)
-        this.state = { hasError: false, error: null, errorInfo: null }
-    }
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
 
-    static getDerivedStateFromError(error) {
-        console.error("Derived State error caught:", error)
-        return { hasError: true }
-    }
+export default function RouteError() {
+    const error = useRouteError()
+    const navigate = useNavigate()
 
-    componentDidCatch(error, errorInfo) {
-        this.setState({
-            error,
-            errorInfo,
-        })
-        console.error("Error caught:", error, errorInfo)
-    }
+    console.error("Route Error:", error)
 
-    render() {
-        if (this.state.hasError) {
-            return (
-                <div className="flex min-h-screen items-center justify-center bg-[var(--bg)] px-4">
-                    <div className="w-full max-w-lg rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-6 shadow-[var(--shadow)]">
-                        <div className="mb-4 flex items-center gap-3">
-                            <div className="rounded-full bg-(--accent-bg) p-2 text-[var(--accent-1)]">
-                                ⚠️
-                            </div>
-                            <h2 className="text-xl font-semibold text-[var(--text-h)]">
-                                Something went wrong
-                            </h2>
-                        </div>
-                        <p className="mb-4 text-[var(--text)]">
-                            {this.state.error?.toString() ||
-                                "An unexpected error occurred."}
-                        </p>
-                        {this.state.errorInfo?.componentStack && (
-                            <details className="overflow-auto rounded-lg border border-[var(--border)] bg-[var(--code-bg)] p-3 text-sm">
-                                <summary className="mb-2 cursor-pointer text-(--text)">
-                                    View technical details
-                                </summary>
-                                <pre className="text-xs wrap-break-word whitespace-pre-wrap text-[var(--accent-1)]">
-                                    {this.state.errorInfo.componentStack}
-                                </pre>
-                            </details>
-                        )}
-                        <div className="mt-6 flex justify-end gap-2">
-                            <button
-                                onClick={() => window.location.reload()}
-                                className="rounded-lg bg-[var(--accent-1)] px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 active:scale-[0.98]"
-                            >
-                                Reload Page
-                            </button>
-                            <button
-                                onClick={() => window.history.back()}
-                                className="rounded-lg border border-[var(--accent-1)] px-4 py-2 text-sm font-medium text-[var(--accent-1)] transition hover:bg-[var(--accent-bg)] active:scale-[0.98]"
-                            >
-                                Go Back
-                            </button>
-                        </div>
+    const errorMessage =
+        error?.message || error?.statusText || "Something unexpected happened."
+
+    return (
+        <div className="bg-background flex min-h-[100vh] items-center justify-center p-4">
+            <Card className="w-full max-w-lg shadow-lg">
+                <CardHeader className="items-center text-center">
+                    <div className="bg-destructive/10 mb-4 rounded-full p-4">
+                        <AlertTriangle className="text-destructive h-10 w-10" />
                     </div>
-                </div>
-            )
-        }
 
-        return this.props.children
-    }
+                    <CardTitle className="text-3xl">
+                        Something went wrong
+                    </CardTitle>
+
+                    <CardDescription>
+                        An unexpected error occurred while loading this page.
+                    </CardDescription>
+                </CardHeader>
+
+                <CardContent className="space-y-6">
+                    <div className="bg-muted/40 rounded-lg border p-4">
+                        <p className="text-muted-foreground text-sm font-medium">
+                            Error Details
+                        </p>
+
+                        <p className="mt-2 text-sm break-words">
+                            {errorMessage}
+                        </p>
+                    </div>
+
+                    {import.meta.env.DEV && error?.stack && (
+                        <details className="rounded-lg border p-4">
+                            <summary className="cursor-pointer text-sm font-medium">
+                                Stack Trace
+                            </summary>
+
+                            <pre className="mt-3 overflow-auto text-xs whitespace-pre-wrap">
+                                {error.stack}
+                            </pre>
+                        </details>
+                    )}
+
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                        <Button
+                            className="flex-1"
+                            onClick={() => window.location.reload()}
+                        >
+                            <RefreshCw />
+                            Reload Page
+                        </Button>
+
+                        <Button
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => navigate("/")}
+                        >
+                            <Home />
+                            Go Home
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+        </div>
+    )
 }
