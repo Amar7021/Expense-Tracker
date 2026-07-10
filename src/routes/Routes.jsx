@@ -31,6 +31,7 @@ const router = createBrowserRouter([
     },
     {
         Component: AuthRootLayout,
+        errorElement: <RootError />,
         children: [
             {
                 path: "dashboard",

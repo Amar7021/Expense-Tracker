@@ -27,7 +27,6 @@ const RootLayout = () => {
 
         return () => {
             clearTimeout(timer)
-            loadingBar?.complete()
         }
     }, [location?.pathname])
 
