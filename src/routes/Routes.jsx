@@ -1,6 +1,12 @@
 import { createBrowserRouter } from "react-router"
 import RootError from "../utils/errors/RootError"
-import { Profile, Dashboard, Expenses } from "./lazyImports"
+import {
+    Profile,
+    Dashboard,
+    Expenses,
+    Settlements,
+    Contacts,
+} from "./lazyImports"
 import lazyComponent from "./Utils"
 import RootLayout from "@/components/layouts/RootLayout"
 import AuthRootLayout from "@/components/layouts/AuthRootLayout"
@@ -31,10 +37,15 @@ const router = createBrowserRouter([
     },
     {
         Component: AuthRootLayout,
+        errorElement: <RootError />,
         children: [
             {
                 path: "dashboard",
                 element: lazyComponent(<Dashboard />),
+            },
+            {
+                path: "contacts",
+                element: lazyComponent(<Contacts />),
             },
             {
                 path: "profile",
@@ -43,6 +54,10 @@ const router = createBrowserRouter([
             {
                 path: "expenses",
                 element: lazyComponent(<Expenses />),
+            },
+            {
+                path: "settlements/:entityType/:entityId",
+                element: lazyComponent(<Settlements />),
             },
         ],
     },

@@ -10,7 +10,7 @@ import { jsxExtensionRule } from "./eslint-rules/jsx-extension-rule.js"
 import react from "eslint-plugin-react"
 
 export default defineConfig([
-    globalIgnores(["dist", "convex/_generated/**"]),
+    globalIgnores(["dist", "src/components/ui/**", "convex/_generated/**"]),
     {
         files: ["src/**/*.{js,jsx}"],
         plugins: {

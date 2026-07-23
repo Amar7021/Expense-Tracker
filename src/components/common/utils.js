@@ -5,6 +5,11 @@ export const navLinks = [
         icon: "dashboard",
     },
     {
+        label: "Contacts",
+        to: "/contacts",
+        icon: "contacts",
+    },
+    {
         label: "Expenses",
         to: "/expenses",
         icon: "expenses",

@@ -3,8 +3,11 @@ import router from "./routes/Routes"
 import { useEffect } from "react"
 import { setThemeMode } from "./global-state/global-feature-slice/appStartSlice"
 import { useDispatch } from "react-redux"
-import { ClerkProvider } from "@clerk/react"
+import { ClerkProvider, useAuth } from "@clerk/react"
 import { shadcn } from "@clerk/ui/themes"
+import { ConvexProviderWithClerk } from "convex/react-clerk"
+import { convexClient } from "./lib/convexClient"
+import ConvexUserSync from "./providers/convex-user-sync"
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 const AFTER_SIGNOUT_URL = import.meta.env.VITE_CLERK_AFTER_SIGNOUT_URL
@@ -43,7 +46,11 @@ function App() {
             }}
             afterSignOutUrl={AFTER_SIGNOUT_URL}
         >
-            <RouterProvider router={router} />
+            <ConvexProviderWithClerk client={convexClient} useAuth={useAuth}>
+                <ConvexUserSync>
+                    <RouterProvider router={router} />
+                </ConvexUserSync>
+            </ConvexProviderWithClerk>
         </ClerkProvider>
     )
 }

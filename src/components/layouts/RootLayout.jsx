@@ -27,7 +27,6 @@ const RootLayout = () => {
 
         return () => {
             clearTimeout(timer)
-            loadingBar?.complete()
         }
     }, [location?.pathname])
 
@@ -41,6 +40,7 @@ const RootLayout = () => {
                 color="var(--accent-1)"
                 ref={loadingBarRef}
                 shadow={true}
+                height={3}
             />
             <Header />
             <main>

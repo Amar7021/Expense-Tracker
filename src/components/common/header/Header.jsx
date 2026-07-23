@@ -25,7 +25,7 @@ const Header = ({ authRoute = false, isLoading = false }) => {
     return (
         <>
             <header
-                className="fixed top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--bg)] backdrop-blur-sm"
+                className="sticky top-0 right-0 left-0 z-50 w-full border-b border-[var(--border)] bg-[var(--bg)] backdrop-blur-sm"
                 style={{
                     background:
                         "color-mix(in srgb, var(--bg) 95%, transparent)",
